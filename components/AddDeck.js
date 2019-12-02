@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity
-} from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
+import TouchableButton from './TouchableButton';
 
 export class AddDeck extends Component {
   state = {
@@ -20,20 +15,18 @@ export class AddDeck extends Component {
           <View style={styles.block}>
             <Text style={styles.title}>What is the title of your new deck?</Text>
           </View>
-          
-          <View style={styles.block}>
+          <View style={[styles.block]}>
             <TextInput
                 style={styles.input}
                 value={this.state.value}
                 onChangeText={this.handleChange}
             />
           </View>
-          
-          <View style={[styles.block, styles.btnContainer]}>
-            <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnText}>Create Deck</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableButton
+              onPress={() => console.log('deck added - console test')}
+          >
+            Create Deck
+          </TouchableButton>
         </View>
     );
   }
@@ -49,28 +42,12 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: 'black',
     backgroundColor: '#fff',
     paddingLeft: 10,
     paddingRight: 10,
     fontSize: 20,
     height: 40
-  },
-  btnContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  btn: {
-    width: 200,
-    height: 50,
-    backgroundColor: 'black',
-    justifyContent: `center`,
-    alignItems: `center`
-  },
-  btnText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'white'
   }
 });
 

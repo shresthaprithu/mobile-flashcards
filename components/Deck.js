@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 18,
-    color: 'gray'
+    color: 'black'
   }
 });
 

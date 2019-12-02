@@ -1,13 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
-// import APITest from './components/APITest';
+import AddCard from './components/AddCard';
 
 export default class App extends React.Component {
   render() {
     return (
         <View style={styles.container}>
-          <AddDeck />
+          {/* <DeckList /> */}
+          {/* <AddDeck /> */}
+          <AddCard />
         </View>
     );
   }
@@ -16,11 +19,9 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     paddingTop: 50,
     paddingBottom: 30,
     paddingLeft: 30,
-    paddingRight: 30
+    paddingRight: 30,
   }
 });

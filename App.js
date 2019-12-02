@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import DeckList from './components/DeckList';
+import AddDeck from './components/AddDeck';
+// import APITest from './components/APITest';
 
 export default class App extends React.Component {
   render() {
     return (
         <View style={styles.container}>
-          <DeckList />
+          <AddDeck />
         </View>
     );
   }
@@ -17,6 +18,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    marginTop: 50
+    paddingTop: 50,
+    paddingBottom: 30,
+    paddingLeft: 30,
+    paddingRight: 30
   }
 });

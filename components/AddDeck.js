@@ -36,7 +36,8 @@ export class AddDeck extends Component {
 
 const styles = StyleSheet.create({
   block: {
-    marginBottom: 20
+    marginBottom: 20,
+    padding: 30
   },
   title: {
     textAlign: 'center',

@@ -1,16 +1,26 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import DeckList from './components/DeckList';
-import AddDeck from './components/AddDeck';
-import AddCard from './components/AddCard';
+import PropTypes from 'prop-types';
+import { StyleSheet, View, StatusBar } from 'react-native';
+import Constants from 'expo-constants';
+import AppNavigator from './navigation/AppNavigator';
+
+function FlashcardStatusBar({ backgroundColor, ...props }) {
+  return (
+      <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+        <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+      </View>
+  );
+}
+FlashcardStatusBar.propTypes = {
+  backgroundColor: PropTypes.string.isRequired
+};
 
 export default class App extends React.Component {
   render() {
     return (
         <View style={styles.container}>
-          {/* <DeckList /> */}
-          {/* <AddDeck /> */}
-          <AddCard />
+          <FlashcardStatusBar backgroundColor="green" barStyle="light-content" />
+          <AppNavigator />
         </View>
     );
   }
@@ -18,10 +28,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 50,
-    paddingBottom: 30,
-    paddingLeft: 30,
-    paddingRight: 30,
+    flex: 1
   }
 });

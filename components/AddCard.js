@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import TouchableButton from './TouchableButton';
+import { gray, green } from '../utils/colors';
 
 export class AddCard extends Component {
   state = {
@@ -38,7 +39,8 @@ export class AddCard extends Component {
             </View>
           </View>
           <TouchableButton
-              onPress={() => console.log('card added- console test')}
+              btnStyle={{ backgroundColor: green }}
+              onPress={() => console.log('card added')}
           >
             Submit
           </TouchableButton>
@@ -50,6 +52,10 @@ export class AddCard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15,
     justifyContent: 'space-around'
   },
   block: {
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: 'gray',
     backgroundColor: '#fff',
     paddingLeft: 10,
     paddingRight: 10,

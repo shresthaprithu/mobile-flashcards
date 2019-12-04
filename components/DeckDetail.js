@@ -14,9 +14,11 @@ export class DeckDetail extends Component {
     title: 'Deck Details'
   };
   render() {
+    const { navigation } = this.props;
+    const deck = navigation.getParam('deck', 'deck undefined');
     return (
         <View style={styles.container}>
-          <Deck />
+          <Deck deck={deck} />
           <View>
             <TouchableButton
                 btnStyle={{ backgroundColor: gray, borderColor: textGray }}

@@ -111,7 +111,7 @@ const MainNavigator = createStackNavigator(
           },
           headerTitleStyle: {
             textAlign: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
           },
           title: 'Add Card'
         }

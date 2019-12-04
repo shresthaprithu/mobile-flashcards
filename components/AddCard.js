@@ -39,7 +39,7 @@ export class AddCard extends Component {
             </View>
           </View>
           <TouchableButton
-              btnStyle={{ backgroundColor: green }}
+              btnStyle={{ backgroundColor: green, borderColor: '#fff' }}
               onPress={() => console.log('card added')}
           >
             Submit

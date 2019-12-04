@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
 import TouchableButton from './TouchableButton';
-import { gray, green } from '../utils/colors';
+import { gray, green, white, textGray } from '../utils/colors';
 
 export class AddDeck extends Component {
   state = {
@@ -24,6 +24,7 @@ export class AddDeck extends Component {
             />
           </View>
           <TouchableButton
+              btnStyle={{ backgroundColor: green, borderColor: white }}
               onPress={() => console.log('deck added - console test')}
           >
             Create Deck

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { white, gray, green } from '../utils/colors';
+import { white, textGray } from '../utils/colors';
 
 const Deck = () => {
   return (
@@ -18,7 +18,8 @@ const Deck = () => {
 const styles = StyleSheet.create({
   deckContainer: {
     alignItems: 'center',
-    flexBasis: 120
+    flexBasis: 120,
+    minHeight: 120,
   },
   deckText: {
     fontSize: 28

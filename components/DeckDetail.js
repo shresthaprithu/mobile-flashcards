@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Deck from './Deck';
 import TouchableButton from './TouchableButton';
 import ButtonText from './ButtonText';
-import { gray } from '../utils/colors';
+import { gray, textGray, green, white, red } from '../utils/colors';
 
 export class DeckDetail extends Component {
   static propTypes = {
@@ -19,15 +19,15 @@ export class DeckDetail extends Component {
           <Deck />
           <View>
             <TouchableButton
-                btnStyle={{ backgroundColor: 'white' }}
-                txtStyle={{ color: 'black' }}
+                btnStyle={{ backgroundColor: gray, borderColor: textGray }}
+                txtStyle={{ color: textGray }}
                 onPress={() => this.props.navigation.navigate('AddCard')}
             >
               Add Card
             </TouchableButton>
             <TouchableButton
-                btnStyle={{ backgroundColor: 'black' }}
-                txtStyle={{ color: 'white' }}
+                btnStyle={{ backgroundColor: green, borderColor: white }}
+                txtStyle={{ color: white }}
                 onPress={() => this.props.navigation.navigate('Quiz')}
             >
               Start Quiz
@@ -48,11 +48,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-around',
-    paddingTop: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 16,
-    backgroundColor: gray
+    paddingTop: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingBottom: 15
   }
 });
 

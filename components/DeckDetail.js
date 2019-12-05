@@ -5,25 +5,32 @@ import Deck from './Deck';
 import TouchableButton from './TouchableButton';
 import ButtonText from './ButtonText';
 import { gray, textGray, green, white, red } from '../utils/colors';
+import { connect } from 'react-redux';
+import { removeDeck } from '../actions/index';
 
 export class DeckDetail extends Component {
   static propTypes = {
-    navigation: PropTypes.object.isRequired
+    navigation: PropTypes.object.isRequired,
+    removeDeck: PropTypes.func.isRequired,
+    decks: PropTypes.object.isRequired
   };
-  static navigationOptions = {
-    title: 'Deck Details'
+  handleDelete = id => {
+    this.props.removeDeck(id);
+    this.props.navigation.goBack();
   };
   render() {
-    const { navigation } = this.props;
-    const deck = navigation.getParam('deck', 'deck undefined');
+    const { navigation, decks } = this.props;
+    const title = navigation.getParam('title', 'Undefined title');
+    const deck = decks[title];
+    
     return (
         <View style={styles.container}>
-          <Deck deck={deck} />
+          <Deck id={deck.title} />
           <View>
             <TouchableButton
-                btnStyle={{ backgroundColor: gray, borderColor: textGray }}
+                btnStyle={{ backgroundColor: white, borderColor: textGray }}
                 txtStyle={{ color: textGray }}
-                onPress={() => this.props.navigation.navigate('AddCard')}
+                onPress={() => this.props.navigation.navigate('AddCard', { title: deck.title })}
             >
               Add Card
             </TouchableButton>
@@ -34,13 +41,13 @@ export class DeckDetail extends Component {
             >
               Start Quiz
             </TouchableButton>
-            <ButtonText
-                txtStyle={{ color: 'red' }}
-                onPress={() => console.log('deck deleted')}
-            >
-              Delete Deck
-            </ButtonText>
           </View>
+          <ButtonText
+              txtStyle={{ color: red }}
+              onPress={() => this.handleDelete(deck.title)}
+          >
+            Delete Deck
+          </ButtonText>
         </View>
     );
   }
@@ -57,4 +64,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckDetail;
+const mapStateToProps = decks => ({ decks });
+
+export default connect(
+    mapStateToProps,
+    { removeDeck }
+)(DeckDetail);

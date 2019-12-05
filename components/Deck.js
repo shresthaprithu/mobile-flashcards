@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
 const Deck = props => {
   const { deck } = props;
@@ -36,4 +37,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Deck;
+const mapStateToProps = (state, { id }) => {
+  const deck = state[id];
+  
+  return {
+    deck
+  };
+};
+
+export default connect(mapStateToProps)(Deck);

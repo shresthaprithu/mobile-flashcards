@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mobile Flashcards",
-    "discription":
+    "discription": "This application allows users to study collections of flashcards.",
     "slug": "mobile-flashcards",
     "privacy": "public",
     "sdkVersion": "35.0.0",

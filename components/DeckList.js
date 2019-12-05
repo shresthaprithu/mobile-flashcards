@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from 'react-native';
 import { connect } from 'react-redux';
 import Deck from './Deck';
 import { gray, green } from '../utils/colors';
@@ -17,7 +23,7 @@ export class DeckList extends Component {
   }
   render() {
     const { decks, navigation } = this.props;
-    
+  
     return (
         <ScrollView style={styles.container}>
           <Text style={styles.title}>Mobile Flashcards</Text>
@@ -31,6 +37,7 @@ export class DeckList extends Component {
                 </TouchableOpacity>
             );
           })}
+          <View style={{ marginBottom: 30 }} />
         </ScrollView>
     );
   }

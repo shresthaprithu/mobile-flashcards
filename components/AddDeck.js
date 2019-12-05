@@ -41,6 +41,7 @@ export class AddDeck extends Component {
           <TouchableButton
               btnStyle={{ backgroundColor: green, borderColor: white }}
               onPress={this.handleSubmit}
+              disabled={this.state.text === ''}
           >
             Create Deck
           </TouchableButton>

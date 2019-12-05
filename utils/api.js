@@ -39,7 +39,7 @@ export async function getDeck(id) {
   }
 }
 
-export async function saveDeckTitle(title) {
+export async function saveDeckTitleAsync(title) {
   try {
     await AsyncStorage.mergeItem(
         DECKS_STORAGE_KEY,
@@ -55,7 +55,7 @@ export async function saveDeckTitle(title) {
   }
 }
 
-export async function removeDeck(key) {
+export async function removeDeckAsync(key) {
   try {
     const results = await AsyncStorage.getItem(DECKS_STORAGE_KEY);
     const data = JSON.parse(results);
@@ -67,7 +67,7 @@ export async function removeDeck(key) {
   }
 }
 
-export async function addCardToDeck(title, card) {
+export async function addCardToDeckAsync(title, card) {
   try {
     const deck = await getDeck(title);
     
@@ -86,7 +86,7 @@ export async function addCardToDeck(title, card) {
 
 export async function resetDecks() {
   try {
-    await AsyncStorage.removeItem(DECKS_STORAGE_KEY);
+    await AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks));
   } catch (err) {
     console.log(err);
   }

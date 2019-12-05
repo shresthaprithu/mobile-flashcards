@@ -69,6 +69,18 @@ export class QuizAndroid extends Component {
   render() {
     const { questions } = this.props.deck;
     const { show } = this.state;
+  
+    if (questions.length === 0) {
+      return (
+          <View style={styles.pageStyle}>
+            <View style={styles.block}>
+              <Text style={[styles.count, { textAlign: 'center' }]}>
+                There are no cards in the deck. Please add atleast one card or more and try again.
+              </Text>
+            </View>
+          </View>
+      );
+    }
     
     if (this.state.show === screen.RESULT) {
       const { correct, questionCount } = this.state;
@@ -78,9 +90,6 @@ export class QuizAndroid extends Component {
       
       return (
           <View style={styles.pageStyle}>
-            <View style={styles.block}>
-              <Text style={styles.count}>Done</Text>
-            </View>
             <View style={styles.block}>
               <Text style={[styles.count, { textAlign: 'center' }]}>
                 Quiz Complete!

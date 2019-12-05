@@ -5,6 +5,7 @@ import TouchableButton from './TouchableButton';
 import { gray, green, white, textGray } from '../utils/colors';
 import { connect } from 'react-redux';
 import { addDeck } from '../actions/index';
+import { saveDeckTitleAsync } from '../utils/api';
 
 export class AddDeck extends Component {
   static propTypes = {
@@ -19,11 +20,14 @@ export class AddDeck extends Component {
   };
   handleSubmit = () => {
     const { addDeck, navigation } = this.props;
+  
+    const { text } = this.state;
+  
+    addDeck(text);
+    saveDeckTitleAsync(text);
     
-    addDeck(this.state.text);
     this.setState(() => ({ text: '' }));
     navigation.goBack();
-    // navigation.navigate('DeckDetail', { title: this.state.text });
   };
   render() {
     return (
@@ -36,6 +40,10 @@ export class AddDeck extends Component {
                 style={styles.input}
                 value={this.state.text}
                 onChangeText={this.handleChange}
+                placeholder="Deck Name"
+                autoFocus={true}
+                returnKeyType="done"
+                onSubmitEditing={this.handleSubmit}
             />
           </View>
           <TouchableButton

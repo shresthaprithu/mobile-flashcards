@@ -38,7 +38,9 @@ export class DeckDetail extends Component {
             <TouchableButton
                 btnStyle={{ backgroundColor: green, borderColor: white }}
                 txtStyle={{ color: white }}
-                onPress={() => this.props.navigation.navigate('Quiz')}
+                onPress={() =>
+                    this.props.navigation.navigate('Quiz', { title: deck.title })
+                }
             >
               Start Quiz
             </TouchableButton>

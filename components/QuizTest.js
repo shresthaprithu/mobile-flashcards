@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   View,
   ScrollView,
@@ -7,6 +6,7 @@ import {
   StyleSheet,
   ViewPagerAndroid
 } from 'react-native';
+import PropTypes from 'prop-types';
 import ButtonText from './ButtonText';
 import TouchableButton from './TouchableButton';
 import { gray, green, red, textGray, darkGray, white } from '../utils/colors';
@@ -22,79 +22,70 @@ const answer = {
   INCORRECT: 'incorrect'
 };
 
-export class Quiz extends Component {
+export class QuizTest extends Component {
   static propTypes = {
-    navigation: PropTypes.object.isRequired,
-    deck: PropTypes.object.isRequired
-  };
-  static navigationOptions = ({ navigation }) => {
-    const title = navigation.getParam('title', '');
-    return {
-      title: `${title} Quiz`
-    };
+    decks: PropTypes.object.isRequired
   };
   state = {
     show: screen.QUESTION,
     correct: 0,
     incorrect: 0,
     page: 0,
-    questionCount: this.props.deck.questions.length,
-    answered: Array(this.props.deck.questions.length).fill(0)
+    questions: Object.values(this.props.decks)[2].questions.length,
+    answered: Array(Object.values(this.props.decks)[2].questions.length).fill(0)
   };
   handlePageChange = evt => {
-    // console.log('evt.nativeEvent.position', evt.nativeEvent.position);
+    console.log('evt.nativeEvent.position', evt.nativeEvent.position);
     this.setState({
       show: screen.QUESTION,
       page: evt.nativeEvent.position
     });
   };
   handleAnswer = response => {
+    const { decks } = this.props;
     if (response === answer.CORRECT) {
       this.setState(prevState => ({ correct: prevState.correct + 1 }));
     } else {
       this.setState(prevState => ({ incorrect: prevState.incorrect + 1 }));
     }
-    this.setState(
-        prevState => ({
-          answered: prevState.answered.map((val, idx) =>
-              prevState.page === idx ? 1 : val
-          )
-        }),
-        () => {
-          // console.log('this.state.answered', this.state.answered);
-          const { correct, incorrect, questionCount } = this.state;
-          
-          if (questionCount === correct + incorrect) {
-            this.setState({ show: screen.RESULT });
-          } else {
-            // console.log('this.state.page', this.state.page);
-            this.viewPager.setPage(this.state.page + 1);
-            this.setState(prevState => ({ page: prevState.page + 1 }));
-          }
-        }
-    );
+    this.setState(prevState => ({
+      answered: prevState.answered.map((val, idx) =>
+          prevState.page === idx ? 1 : val
+      )
+    }));
+    console.log('this.state.answered', this.state.answered);
+    
+    const { correct, incorrect } = this.state;
+    
+    const questions = Object.values(decks)[2].questions;
+    const numQuestions = questions.length - 1;
+    
+    if (numQuestions === correct + incorrect) {
+      this.setState({ show: screen.RESULT });
+    }
   };
   handleReset = () => {
     this.setState(prevState => ({
       show: screen.QUESTION,
       correct: 0,
       incorrect: 0,
-      page: 0,
-      answered: Array(prevState.questionCount).fill(0)
+      answered: Array(prevState.questions).fill(0)
     }));
   };
   render() {
-    const { questions } = this.props.deck;
+    const { decks } = this.props;
     const { show } = this.state;
+    const questions = Object.values(decks)[2].questions;
     
     if (this.state.show === screen.RESULT) {
-      const { correct, questionCount } = this.state;
-      const percent = ((correct / questionCount) * 100).toFixed(0);
+      const { correct, incorrect } = this.state;
+      const total = correct + incorrect;
+      const percent = ((correct / total) * 100).toFixed(0);
       const resultStyle =
           percent >= 70 ? styles.resultTextGood : styles.resultTextBad;
       
       return (
-          <View style={styles.pageStyle}>
+          <View style={styles.container}>
             <View style={styles.block}>
               <Text style={styles.count}>Done</Text>
             </View>
@@ -103,7 +94,7 @@ export class Quiz extends Component {
                 Quiz Complete!
               </Text>
               <Text style={resultStyle}>
-                {correct} / {questionCount} correct
+                {correct} / {total} correct
               </Text>
             </View>
             <View style={styles.block}>
@@ -122,12 +113,10 @@ export class Quiz extends Component {
               <TouchableButton
                   btnStyle={{ backgroundColor: gray, borderColor: textGray }}
                   txtStyle={{ color: textGray }}
-                  onPress={() => {
-                    this.handleReset();
-                    this.props.navigation.navigate('Home');
-                  }}
+                  // onPress={() => this.props.navigation.goBack()}
+                  onPress={() => console.log('go back')}
               >
-                Home
+                Back to Deck
               </TouchableButton>
             </View>
           </View>
@@ -139,9 +128,6 @@ export class Quiz extends Component {
             style={styles.container}
             scrollEnabled={true}
             onPageSelected={this.handlePageChange}
-            ref={viewPager => {
-              this.viewPager = viewPager;
-            }}
         >
           {questions.map((question, idx) => (
               <View style={styles.pageStyle} key={idx}>
@@ -181,6 +167,7 @@ export class Quiz extends Component {
                   <TouchableButton
                       btnStyle={{ backgroundColor: green, borderColor: white }}
                       onPress={() => this.handleAnswer(answer.CORRECT)}
+                      // disabled={true}
                       disabled={this.state.answered[idx] === 1}
                   >
                     Correct
@@ -188,6 +175,7 @@ export class Quiz extends Component {
                   <TouchableButton
                       btnStyle={{ backgroundColor: red, borderColor: white }}
                       onPress={() => this.handleAnswer(answer.INCORRECT)}
+                      // disabled={true}
                       disabled={this.state.answered[idx] === 1}
                   >
                     Incorrect
@@ -223,20 +211,20 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   questionContainer: {
-    backgroundColor: white,
+    borderWidth: 1,
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 15,
     paddingRight: 15,
     flexGrow: 1
   },
-  questionWrapper: {
-    flex: 1,
-    justifyContent: 'center'
-  },
   questionText: {
     textAlign: 'center',
     fontSize: 20
+  },
+  questionWrapper: {
+    flex: 1,
+    justifyContent: 'center'
   },
   resultTextGood: {
     color: green,
@@ -250,13 +238,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state, { navigation }) => {
-  const title = navigation.getParam('title', 'undefined');
-  const deck = state[title];
-  
-  return {
-    deck
-  };
-};
+const mapStateToProps = state => ({ decks: state });
 
-export default connect(mapStateToProps)(Quiz);
+const mapDispatchToProps = {};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(QuizTest);

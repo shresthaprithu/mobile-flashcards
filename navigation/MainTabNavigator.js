@@ -133,8 +133,7 @@ const MainNavigator = createStackNavigator(
           headerTintColor: green,
           headerStyle: {
             backgroundColor: lightGreen
-          },
-          title: 'Quiz'
+          }
         }
       }
     },

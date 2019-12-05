@@ -44,33 +44,22 @@ export function setLocalNotification() {
         if (data === null) {
           Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
             if (status === 'granted') {
-              Notifications.createChannelAndroidAsync(CHANNEL_ID, createChannel())
-                  .then(val => console.log('channel return:', val))
-                  .then(() => {
-                    Notifications.cancelAllScheduledNotificationsAsync();
-                    
-                    const tomorrow = new Date();
-  
-                    // 2 minute from now
-                    tomorrow.setTime(tomorrow.getTime() + 0.1 * 60000);
-                    
-                    // tomorrow.setDate(tomorrow.getDate() + 1);
-                    tomorrow.setHours(20);
-                    tomorrow.setMinutes(0);
-                    
-                    Notifications.scheduleLocalNotificationAsync(
-                        createNotification(),
-                        {
-                          time: tomorrow,
-                          repeat: 'day'
-                        }
-                    );
-                    
-                    AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
-                  })
-                  .catch(err => {
-                    console.log('err', err);
-                  });
+              Notifications.cancelAllScheduledNotificationsAsync();
+              
+              const tomorrow = new Date();
+              
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(20);
+              tomorrow.setMinutes(0);
+              
+              Notifications.scheduleLocalNotificationAsync(
+                  createNotification(),
+                  {
+                    time: tomorrow,
+                    repeat: 'day'
+                  }
+              );
+              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
             }
           });
         }

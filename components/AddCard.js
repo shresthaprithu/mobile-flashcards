@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Text, View, TextInput, StyleSheet } from 'react-native';
 import TouchableButton from './TouchableButton';
 import { gray, green } from '../utils/colors';
+import { connect } from 'react-redux';
+import { addCardToDeck } from '../actions/index';
 
 export class AddCard extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired,
+    addCardToDeck: PropTypes.func.isRequired
+  };
   state = {
     question: '',
     answer: ''
@@ -13,6 +21,17 @@ export class AddCard extends Component {
   };
   handleAnswerChange = answer => {
     this.setState({ answer });
+  };
+  handleSubmit = () => {
+    const { addCardToDeck, title, navigation } = this.props;
+    const card = {
+      question: this.state.question,
+      answer: this.state.answer
+    };
+    
+    addCardToDeck(title, card);
+    this.setState({ question: '', answer: '' });
+    navigation.goBack();
   };
   render() {
     return (
@@ -37,13 +56,15 @@ export class AddCard extends Component {
                   placeholder="Answer"
               />
             </View>
+            <TouchableButton
+                btnStyle={{ backgroundColor: green, borderColor: '#fff' }}
+                onPress={this.handleSubmit}
+                disabled={this.state.question === '' || this.state.answer === ''}
+            >
+              Submit
+            </TouchableButton>
           </View>
-          <TouchableButton
-              btnStyle={{ backgroundColor: green, borderColor: '#fff' }}
-              onPress={() => console.log('card added')}
-          >
-            Submit
-          </TouchableButton>
+          <View style={{ height: '30%' }} />
         </View>
     );
   }
@@ -76,4 +97,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AddCard;
+const mapStateToProps = (state, { navigation }) => {
+  const title = navigation.getParam('title', 'undefined');
+  
+  return {
+    title
+  };
+};
+
+export default connect(
+    mapStateToProps,
+    { addCardToDeck }
+)(AddCard);

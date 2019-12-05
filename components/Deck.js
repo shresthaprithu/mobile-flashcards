@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 const Deck = props => {
   const { deck } = props;
+  if (deck === undefined) {
+    return <View style={styles.deckContainer} />;
+  }
   return (
       <View style={styles.deckContainer}>
         <View>
@@ -17,7 +20,7 @@ const Deck = props => {
   );
 };
 Deck.propTypes = {
-  deck: PropTypes.object.isRequired
+  deck: PropTypes.object
 };
 
 const styles = StyleSheet.create({

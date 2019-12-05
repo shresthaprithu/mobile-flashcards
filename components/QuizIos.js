@@ -117,6 +117,16 @@ class QuizIos extends Component {
                   txtStyle={{ color: textGray }}
                   onPress={() => {
                     this.handleReset();
+                    this.props.navigation.goBack();
+                  }}
+              >
+                Back To Deck
+              </TouchableButton>
+              <TouchableButton
+                  btnStyle={{ backgroundColor: gray, borderColor: textGray }}
+                  txtStyle={{ color: textGray }}
+                  onPress={() => {
+                    this.handleReset();
                     this.props.navigation.navigate('Home');
                   }}
               >

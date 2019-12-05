@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Mobile Flashcards",
+    "discription":
     "slug": "mobile-flashcards",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -15,7 +16,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

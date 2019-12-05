@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Constants from 'expo-constants';
 import QuizAndroid from './QuizAndroid';
 import QuizIos from './QuizIos';
+import { setLocalNotification, clearLocalNotification } from '../utils/helpers';
 
 export class Quiz extends Component {
   static propTypes = {
@@ -14,6 +15,9 @@ export class Quiz extends Component {
       title: `${title} Quiz`
     };
   };
+  componentDidMount() {
+    clearLocalNotification().then(setLocalNotification);
+  }
   render() {
     const { navigation } = this.props;
     const title = navigation.getParam('title', '');
